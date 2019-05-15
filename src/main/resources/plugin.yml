@@ -8,3 +8,11 @@ commands:
     description: Command to toggle night vision on and off.
     permission: bpnightvision.nv
     aliases: [nightvision, bpnv]
+
+permissions:
+  bpnightvision.nv:
+    description: Allow players to toggle night vision on and off.
+    default: false
+  bpnightvision.list:
+    description: List all players with night vision on.
+    default: false

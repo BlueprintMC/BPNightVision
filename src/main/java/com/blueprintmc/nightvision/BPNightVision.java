@@ -1,5 +1,6 @@
 package com.blueprintmc.nightvision;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -14,6 +15,7 @@ public class BPNightVision extends JavaPlugin
     public BPNightVision()
     {
         task = new BPNightVisionTask(this);
+        players = new ArrayList<Player>();
     }
 
     @Override
@@ -30,5 +32,10 @@ public class BPNightVision extends JavaPlugin
     public void onDisable()
     {
 
+    }
+
+    public String getMessage(BPNVLang value)
+    {
+        return ChatColor.translateAlternateColorCodes('&', value.getValue());
     }
 }

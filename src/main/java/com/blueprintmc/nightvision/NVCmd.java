@@ -18,30 +18,32 @@ public class NVCmd implements CommandExecutor
         switch (args.length)
         {
             case 0:
-                sender.sendMessage("bpnightvision.default");
+                sender.sendMessage("");
+                sender.sendMessage(plugin.getMessage(BPNVLang.DEFAULT));
+                sender.sendMessage("");
                 break;
             case 1:
                 switch (args[0].toLowerCase())
                 {
                     case "help":
-                        sender.sendMessage("bpnightvision.help");
+                        sender.sendMessage(plugin.getMessage(BPNVLang.HELP));
                         break;
                     case "on":
-                        sender.sendMessage("bpnightvision.on");
+                        sender.sendMessage(plugin.getMessage(BPNVLang.ON));
                         break;
                     case "off":
-                        sender.sendMessage("bpnightvision.off");
+                        sender.sendMessage(plugin.getMessage(BPNVLang.OFF));
                         break;
                     case "list":
-                        sender.sendMessage("bpnightvision.list");
+                        sender.sendMessage(plugin.getMessage(BPNVLang.LIST));
                         break;
                     default:
-                        sender.sendMessage("bpnightvision.invalid");
+                        sender.sendMessage(plugin.getMessage(BPNVLang.INVALID));
                         break;
                 }
                 break;
             default:
-                sender.sendMessage("bpnightvision.invalid");
+                sender.sendMessage(plugin.getMessage(BPNVLang.INVALID));
                 break;
         }
 

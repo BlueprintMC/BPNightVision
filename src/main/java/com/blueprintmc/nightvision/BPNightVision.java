@@ -3,39 +3,52 @@ package com.blueprintmc.nightvision;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffectType;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class BPNightVision extends JavaPlugin
 {
-    private BPNightVisionTask task;
+	private BPNightVisionTask task;
 
-    public ArrayList<Player> players;
+	public HashMap<String, Player> players;
 
-    public BPNightVision()
-    {
-        task = new BPNightVisionTask(this);
-        players = new ArrayList<Player>();
-    }
+	public static final String VERSION = "1.0.0";
 
-    @Override
-    public void onEnable()
-    {
-        /* /nv command */
-        getCommand("nv").setExecutor(new NVCmd(this));
+	public BPNightVision()
+	{
+		task = new BPNightVisionTask(this);
+		players = new HashMap<String, Player>();
+	}
 
-        /* Night vision refresh task every 5 seconds */
-        getServer().getScheduler().scheduleSyncRepeatingTask(this, task, 0L, 100L);
-    }
+	@Override
+	public void onEnable()
+	{
+		/* /nv command */
+		getCommand("nv").setExecutor(new NVCmd(this));
+		getCommand("nvlist").setExecutor(new NVListCmd(this));
 
-    @Override
-    public void onDisable()
-    {
+		/* Listeners */
+		getServer().getPluginManager().registerEvents(new BPNVQuitListener(this), this);
 
-    }
+		/* Night vision refresh task every 5 seconds */
+		getServer().getScheduler().scheduleSyncRepeatingTask(this, task, 0L, 100L);
+	}
 
-    public String getMessage(BPNVLang value)
-    {
-        return ChatColor.translateAlternateColorCodes('&', value.getValue());
-    }
+	@Override
+	public void onDisable()
+	{
+		for (Player p : players.values())
+		{
+			if (p.isOnline())
+			{
+				p.removePotionEffect(PotionEffectType.NIGHT_VISION);
+			}
+		}
+	}
+
+	public String getMessage(BPNVLang value)
+	{
+		return ChatColor.translateAlternateColorCodes('&', value.getValue());
+	}
 }

@@ -6,22 +6,22 @@ import org.bukkit.potion.PotionEffectType;
 
 public class BPNightVisionTask implements Runnable
 {
-    private BPNightVision plugin;
+	private BPNightVision plugin;
 
-    public BPNightVisionTask(BPNightVision plugin)
-    {
-        this.plugin = plugin;
-    }
+	public BPNightVisionTask(BPNightVision plugin)
+	{
+		this.plugin = plugin;
+	}
 
-    @Override
-    public void run()
-    {
-        for (Player p : plugin.players)
-        {
-            if (p.isOnline())
-            {
-                p.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 100, 0));
-            }
-        }
-    }
+	@Override
+	public void run()
+	{
+		for (Player p : plugin.players.values())
+		{
+			if (p.isOnline())
+			{
+				p.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 0));
+			}
+		}
+	}
 }

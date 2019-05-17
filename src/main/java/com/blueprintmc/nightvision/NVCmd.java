@@ -48,7 +48,9 @@ public class NVCmd implements CommandExecutor
 					case "on":
 						Player p = (Player) sender;
 						plugin.players.put(p.getName(), p);
-						p.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 0));
+						p.addPotionEffect(
+								new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 0, true, false,
+										false));
 						sender.sendMessage(plugin.getMessage(BPNVLang.ON));
 						break;
 					case "off":

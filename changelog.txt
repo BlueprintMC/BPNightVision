@@ -1,0 +1,3 @@
+v1.0.1
+- Toggle message is now light blue instead of white.
+- No longer shows particle effects.

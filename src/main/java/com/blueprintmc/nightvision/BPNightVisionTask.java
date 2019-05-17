@@ -20,7 +20,8 @@ public class BPNightVisionTask implements Runnable
 		{
 			if (p.isOnline())
 			{
-				p.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 0));
+				p.addPotionEffect(
+						new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 0, true, false, false));
 			}
 		}
 	}

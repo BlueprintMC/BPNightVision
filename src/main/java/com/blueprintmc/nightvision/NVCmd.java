@@ -32,49 +32,70 @@ public class NVCmd implements CommandExecutor
 			return true;
 		}
 
+		Player player = (Player) sender;
+		String username = sender.getName();
+
 		switch (args.length)
 		{
 			case 0:
-				sender.sendMessage("");
-				sender.sendMessage(plugin.getMessage(BPNVLang.DEFAULT));
-				sender.sendMessage("");
+				if (plugin.hasNightVision(username))
+				{
+					player.removePotionEffect(PotionEffectType.NIGHT_VISION);
+					plugin.players.remove(username);
+					player.sendMessage(plugin.getMessage(BPNVLang.OFF));
+				}
+				else
+				{
+					plugin.players.put(username, player);
+					player.addPotionEffect(
+							new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 0, true, false));
+					player.sendMessage(plugin.getMessage(BPNVLang.ON));
+				}
 				break;
 			case 1:
 				switch (args[0].toLowerCase())
 				{
 					case "help":
-						sender.sendMessage(plugin.getMessage(BPNVLang.HELP));
+						player.sendMessage(plugin.getMessage(BPNVLang.HELP));
 						break;
 					case "on":
-						Player p = (Player) sender;
-						plugin.players.put(p.getName(), p);
-						p.addPotionEffect(
-								new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 0, true, false,
-										false));
-						sender.sendMessage(plugin.getMessage(BPNVLang.ON));
+						if (plugin.hasNightVision(username))
+						{
+							player.sendMessage(plugin.getMessage(BPNVLang.HAS_NIGHT_VISION));
+						}
+						else
+						{
+							plugin.players.put(username, player);
+							player.addPotionEffect(
+									new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 0, true, false));
+							player.sendMessage(plugin.getMessage(BPNVLang.ON));
+						}
 						break;
 					case "off":
-						String username = ((Player) sender).getName();
-						Player p2 = plugin.players.get(username);
-						if (p2 == null)
+						if (!plugin.hasNightVision(username))
 						{
-							/* Player does not have night vision! */
+							/* Player already does not have night vision! */
 							sender.sendMessage(plugin.getMessage(BPNVLang.NO_NIGHT_VISION));
 						}
 						else
 						{
-							p2.removePotionEffect(PotionEffectType.NIGHT_VISION);
+							player.removePotionEffect(PotionEffectType.NIGHT_VISION);
 							plugin.players.remove(username);
-							sender.sendMessage(plugin.getMessage(BPNVLang.OFF));
+							player.sendMessage(plugin.getMessage(BPNVLang.OFF));
 						}
 						break;
+					case "version":
+						player.sendMessage("");
+						player.sendMessage(plugin.getMessage(BPNVLang.VERSION));
+						player.sendMessage("");
+						break;
 					default:
-						sender.sendMessage(plugin.getMessage(BPNVLang.INVALID));
+						player.sendMessage(plugin.getMessage(BPNVLang.INVALID));
 						break;
 				}
 				break;
 			default:
-				sender.sendMessage(plugin.getMessage(BPNVLang.INVALID));
+				player.sendMessage(plugin.getMessage(BPNVLang.INVALID));
 				break;
 		}
 

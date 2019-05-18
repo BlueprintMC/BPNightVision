@@ -13,7 +13,7 @@ public class BPNightVision extends JavaPlugin
 
 	public HashMap<String, Player> players;
 
-	public static final String VERSION = "1.0.1";
+	public static final String VERSION = "1.1.0";
 
 	public BPNightVision()
 	{
@@ -50,5 +50,10 @@ public class BPNightVision extends JavaPlugin
 	public String getMessage(BPNVLang value)
 	{
 		return ChatColor.translateAlternateColorCodes('&', value.getValue());
+	}
+
+	public boolean hasNightVision(String username)
+	{
+		return players.get(username) != null;
 	}
 }

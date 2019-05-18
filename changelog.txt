@@ -1,3 +1,9 @@
 v1.0.1
 - Toggle message is now light blue instead of white.
 - No longer shows particle effects.
+
+v1.1.0
+- Restores 1.12 compatibility! (This was broken in v1.0.1)
+  - Icon for potion effect now shows again.
+- /nv now toggles night vision.
+- New subcommand: /nv version - shows plugin information.
